@@ -5,7 +5,7 @@
 4. [Instructions](README.md#Instructions)
 
 # Introduction
-This project help to identify possible donors for a variety of upcoming election campaigns. The result consists of two parts:
+This project analyzes donors for a variety of election campaigns. The result consists of two parts:
 
 a. The running median, total dollar amount and total number of contributions by recipient and zip code for each record of the input data.
 
