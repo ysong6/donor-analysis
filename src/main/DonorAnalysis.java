@@ -50,7 +50,8 @@ public class DonorAnalysis {
                     continue;
                 } else {
                     try {
-                        amount = Math.abs(Float.parseFloat(strAmount));
+//                      amount = Math.abs(Float.parseFloat(strAmount));
+                        amount = Float.parseFloat(strAmount);
                     } catch (NumberFormatException e) {
                         continue;
                     }
@@ -61,7 +62,7 @@ public class DonorAnalysis {
                 if (zipCode.length() >= 5) {
                     zipCode = zipCode.substring(0, 5);
 
-                    //check the
+                    //check the zipcode if it is malformed
                     boolean valid = true;
                     for(int i = 0; i < 5; i++){
                         if(!Character.isLetterOrDigit(zipCode.charAt(i))){
@@ -174,15 +175,15 @@ public class DonorAnalysis {
     }
 
     public static void main(String args[]) {
-        long start = System.currentTimeMillis();
+//        long start = System.currentTimeMillis();
         if (args.length == 3) {
             DonorAnalysis analysis = new DonorAnalysis(args[0], args[1], args[2]);
             analysis.analyse();
         } else {
             System.out.println("Please specify input file and out file paths.");
         }
-        long end = System.currentTimeMillis();
+//        long end = System.currentTimeMillis();
 
-        System.out.print(end - start);
+//        System.out.print(end - start);
     }
 }

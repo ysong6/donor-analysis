@@ -22,9 +22,7 @@ _Note: first remove all leading and trailing white space of the data string._
 
 `TRANSACTION_DT`: if the date is malformed, should not add this record into `medianvals_by_date.txt`
 
-`TRANSACTION_AMT`: Two situations for amount of the transaction:
-1. if amount is malformed, discarding the record.
-2. if amount is negative number, change to positive. Because donation must not be negative, the negative sign must be add by mistake.
+`TRANSACTION_AMT`: If amount is malformed, discarding the record.
 
 `OTHER_ID`: if this part is not empty, discarding this record.
 
