@@ -1,6 +1,7 @@
 /**
- * Created by songyuan on 10/29/17.
+ * Contribution info for specified recipient and zipcode
  */
+
 public class RecipientZipcode {
 
     String recipientID;

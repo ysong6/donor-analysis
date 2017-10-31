@@ -71,9 +71,9 @@ public class DonorAnalysis {
                     }
 
                     if(valid) {
-                        // add record
+                        // the zip code is valid, add record
                         ContributionRecord record = addContributionWithZip(recipientID, zipCode, amount);
-                        // output to median by zip file
+                        // output new recode with median to zip file
                         outputMedianByZip(bwZip, recipientID, zipCode, record);
                     }
                 }
@@ -116,7 +116,7 @@ public class DonorAnalysis {
         }
     }
 
-
+    //output current analysis info to zip file
     public void outputMedianByZip(BufferedWriter bw, String recipientID, String zipCode,
                                   ContributionRecord record) throws IOException {
         StringBuilder sb = new StringBuilder();

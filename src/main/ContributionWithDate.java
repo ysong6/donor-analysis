@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Contribution info for specified recipient and date
+ * Record contribution info for specified recipient and date
  */
 public class ContributionWithDate {
     private ContributionRecord record = new ContributionRecord();

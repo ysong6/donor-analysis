@@ -2,7 +2,7 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 
 /**
- * Contribution info for specified recipient and zipcode
+ * Record contribution info for specified recipient and zipcode
  */
 public class ContributionWithZip {
     ContributionRecord record = new ContributionRecord();
