@@ -82,7 +82,7 @@ public class DonorAnalysis {
                 // process date. If the date is malformed, should not add this record into `medianvals_by_date.txt`
                 dateStr = columns[13].trim();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
-//                if (dateStr.length() != dateFormat.toPattern().length()) continue;
+                if (dateStr.length() != dateFormat.toPattern().length()) continue;
                 try {
                     Date date = dateFormat.parse(dateStr);
                     addContributionWithDate(recipientID, date, amount);
