@@ -5,8 +5,10 @@
 
 
 # Data extraction
-CMTE_ID: identifies the flier, which for our purposes is the recipient of this contribution
-ZIP_CODE: zip code of the contributor (we only want the first five digits/characters)
+CMTE_ID: 
+first, delete the white space 
+
+ZIP_CODE: 
 TRANSACTION_DT: date of the transaction
 TRANSACTION_AMT: amount of the transaction
-OTHER_ID: if this part 
+OTHER_ID: if this part is empty, discard this record.
