@@ -48,7 +48,8 @@ donationWithZip: A hashMap. The key is the combination of recipient id and zipco
 
 donationWithDate: A treeMap to keep the recipient in order. The key is the recipient id, the value is also a treeMap. The key of this treeMap is date info, the value of this treeMap is a class, which record the total amount and total contribution number and contributions amount info.
 
-3. Calculate stream median: 
+3. Calculate running median: 
+
 The data structure to compute the running median uses 2 heaps: a max-heap which stores the smaller half of all values of the stream and a min-heap which stores the larger half of all the values in the stream. If the total number of values is even, each heap will contain the same number of values and the median is the average of root values of the two heaps. If the total number of values is odd, the size of th heaps will differ by 1. In this case, make the algorithm to guarantee the size of max-heap larger than min-heap. So the median is the root number of the max-heap.
 
 Every time when a new value come to the stream, this property is maintained in the following way:
@@ -66,10 +67,13 @@ Otherwise the median is the root of max-heap.
 Java version: 1.8
 
 The project has 3 input parameters:
+
 1. input file
 2. output_zipfile
 3. output_datefile
 
 run.sh:
+
 1.compile the project
+
 2.run the this project with 3 paramters: "./input/itcont.txt", "./output/medianvals_by_zip.txt", "./output/medianvals_by_date.txt"
