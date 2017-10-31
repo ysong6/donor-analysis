@@ -35,26 +35,33 @@ public class DonorAnalysis {
             for (String line; (line = br.readLine()) != null; ) {
                 // process the line
                 String[] columns = line.split("\\|");
-                // process other id
+
+                // process other id, if it is not empty, discarding the record
                 if (!columns[15].isEmpty())
                     continue;
-                // process recipient
+
+                // process recipient. if it is empty, discarding the record
                 if ((recipientID = columns[0]).trim().isEmpty()) continue;
-                // process amount
+
+                // process amount. if Amount is malformed, discarding the record.
+                // if Amount is negative number, change to positive
                 strAmount = columns[14].trim();
                 if (strAmount.isEmpty()) {
                     continue;
                 } else {
                     try {
-                        amount = Float.parseFloat(strAmount);
+                        amount = Math.abs(Float.parseFloat(strAmount));
                     } catch (NumberFormatException e) {
                         continue;
                     }
                 }
-                // process zip code
+
+                // process zip code. if the length of zipCode part is less than 5 or is malformed, should not add this record into `medianvals_by_zip.txt`
                 zipCode = columns[10].trim();
                 if (zipCode.length() >= 5) {
                     zipCode = zipCode.substring(0, 5);
+
+                    //check the
                     boolean valid = true;
                     for(int i = 0; i < 5; i++){
                         if(!Character.isLetterOrDigit(zipCode.charAt(i))){
@@ -63,13 +70,15 @@ public class DonorAnalysis {
                         }
                     }
 
-                    if(!valid) continue;
-                    // add record
-                    ContributionRecord record = addContributionWithZip(recipientID, zipCode, amount);
-                    // output to median by zip file
-                    outputMedianByZip(bwZip, recipientID, zipCode, record);
+                    if(valid) {
+                        // add record
+                        ContributionRecord record = addContributionWithZip(recipientID, zipCode, amount);
+                        // output to median by zip file
+                        outputMedianByZip(bwZip, recipientID, zipCode, record);
+                    }
                 }
-                // process date
+
+                // process date. If the date is malformed, should not add this record into `medianvals_by_date.txt`
                 dateStr = columns[13].trim();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
 //                if (dateStr.length() != dateFormat.toPattern().length()) continue;
@@ -80,6 +89,7 @@ public class DonorAnalysis {
                     continue;
                 }
             }
+
             // output to median by date file
             outputMedianByDate(bwDate);
         } catch (IOException e) {
