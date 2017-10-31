@@ -1,6 +1,9 @@
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+/**
+ * Contribution info for specified recipient and zipcode
+ */
 public class ContributionWithZip {
     ContributionRecord record = new ContributionRecord();
     PriorityQueue<Float> maxHeap = new PriorityQueue<Float>(20);
@@ -16,7 +19,7 @@ public class ContributionWithZip {
         if(maxHeap.size() < minHeap.size()){
             maxHeap.offer(minHeap.poll());
         }
-        record.median = (int) (maxHeap.size() == minHeap.size() ? DonorAnalysis.myRound((maxHeap.peek() + minHeap.peek()) / 2.0f) : maxHeap.peek());
+        record.median = (int) (maxHeap.size() == minHeap.size() ? Math.round((maxHeap.peek() + minHeap.peek()) / 2.0f) : maxHeap.peek());
         return record;
     }
 }

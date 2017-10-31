@@ -18,6 +18,7 @@ public class DonorAnalysis {
         this.outputDateFilePath = outputDateFilePath;
     }
 
+
     public void analyse() {
         BufferedReader br = null;
         BufferedWriter bwZip = null;
@@ -26,6 +27,7 @@ public class DonorAnalysis {
         String zipCode;
         String dateStr;
         float amount = 0;
+        String strAmount;
         try {
             bwZip = new BufferedWriter(new FileWriter(outputZipFilePath));
             bwDate = new BufferedWriter(new FileWriter(outputDateFilePath));
@@ -34,17 +36,17 @@ public class DonorAnalysis {
                 // process the line
                 String[] columns = line.split("\\|");
                 // process other id
-
                 if (!columns[15].isEmpty())
                     continue;
                 // process recipient
                 if ((recipientID = columns[0]).trim().isEmpty()) continue;
                 // process amount
-                if (columns[14].isEmpty()) {
+                strAmount = columns[14].trim();
+                if (strAmount.isEmpty()) {
                     continue;
                 } else {
                     try {
-                        amount = Float.parseFloat(columns[14].trim());
+                        amount = Float.parseFloat(strAmount);
                     } catch (NumberFormatException e) {
                         continue;
                     }
@@ -52,7 +54,6 @@ public class DonorAnalysis {
                 // process zip code
                 zipCode = columns[10].trim();
                 if (zipCode.length() >= 5) {
-
                     zipCode = zipCode.substring(0, 5);
                     boolean valid = true;
                     for(int i = 0; i < 5; i++){
@@ -69,11 +70,11 @@ public class DonorAnalysis {
                     outputMedianByZip(bwZip, recipientID, zipCode, record);
                 }
                 // process date
-                dateStr = columns[13];
+                dateStr = columns[13].trim();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
-                if (dateStr.trim().length() != dateFormat.toPattern().length()) continue;
+//                if (dateStr.length() != dateFormat.toPattern().length()) continue;
                 try {
-                    Date date = dateFormat.parse(dateStr.trim());
+                    Date date = dateFormat.parse(dateStr);
                     addContributionWithDate(recipientID, date, amount);
                 } catch (ParseException e) {
                     continue;
@@ -113,9 +114,10 @@ public class DonorAnalysis {
                 .append(zipCode).append("|")
                 .append(record.median).append("|")
                 .append(record.totalContributionNumber)
-                .append("|").append(record.totalDollarAmount).append("\n");
+                .append("|").append(Math.round(record.totalDollarAmount)).append("\n");
         bw.write(sb.toString());
     }
+
 
     public void addContributionWithDate(String recipientID, Date date, float amount) {
         if (donationWithDate.containsKey(recipientID)) {
@@ -155,18 +157,10 @@ public class DonorAnalysis {
                         .append(format.format(date)).append("|")
                         .append(record.median).append("|")
                         .append(record.totalContributionNumber)
-                        .append("|").append(record.totalDollarAmount).append("\n");
+                        .append("|").append(Math.round(record.totalDollarAmount)).append("\n");
                 bw.write(sb.toString());
             }
         }
-    }
-
-    static public int myRound(float x){
-        if(x < 0) {
-            return (int) Math.round(x - 0.00001);
-        }
-
-        return (int) Math.round(x);
     }
 
     public static void main(String args[]) {

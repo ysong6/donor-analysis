@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Contribution info for specified recipient and date
+ */
 public class ContributionWithDate {
     private ContributionRecord record = new ContributionRecord();
     private List<Float> contributions = new ArrayList<Float>();
@@ -15,7 +18,7 @@ public class ContributionWithDate {
     public ContributionRecord getMedian() {
         Collections.sort(contributions);
         record.median = (int) ((record.totalContributionNumber % 2 == 0) ?
-                DonorAnalysis.myRound((contributions.get(record.totalContributionNumber / 2 - 1) + contributions.get(record.totalContributionNumber / 2)) / 2.0f) :
+                Math.round((contributions.get(record.totalContributionNumber / 2 - 1) + contributions.get(record.totalContributionNumber / 2)) / 2.0f) :
                 contributions.get(record.totalContributionNumber / 2));
         return record;
     }
